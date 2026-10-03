@@ -2,6 +2,7 @@ package tn.esprit.firstproject.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -18,4 +19,9 @@ public class Agence {
     private String ville;
     private String adresse;
     private String telephone;
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
+    private Set<Employe> employes;
+
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
+    private Set<Vehicule> vehicules;
 }

@@ -3,7 +3,7 @@ package tn.esprit.firstproject.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
-
+import java.util.Set;
 @Entity
 @Getter
 @Setter
@@ -26,4 +26,22 @@ public class Vehicule {
 
     @Enumerated(EnumType.STRING)
     private StatutVehicule statut;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "agence_id")
+    private Agence agence;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "vehicule_equipement",
+            joinColumns = @JoinColumn(name = "vehicule_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipement_id")
+    )
+    private Set<Equipement> equipements;
+
+
+    @OneToMany(mappedBy = "vehicule")
+    private Set<Reservation> reservations;
+
 }
