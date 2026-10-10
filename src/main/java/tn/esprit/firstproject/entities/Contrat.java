@@ -15,7 +15,7 @@ public class Contrat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idContrat;
+    private Long idContrat;//type wrapper either long or integer
 
     private LocalDate dateSignature;
     private BigDecimal montantTotal;
@@ -25,6 +25,10 @@ public class Contrat {
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
-    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL)
+    @OneToMany(
+            mappedBy = "contrat",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
     private Set<Paiement> paiements;
 }
